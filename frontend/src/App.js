@@ -10,6 +10,10 @@ import MusicPlayer from './components/MusicPlayer';
 
 function App() {
 
+  const totalRounds = 3; // Example: Complete 3 rounds with 3 different songs
+  // const [currentSong, setCurrentSong] = useState('Song1.mp3'); // Start with the first song
+
+  const [currentRound, setCurrentRound] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const [sessionStarted, setSessionStarted] = useState(false);
   const [testItems, setTestItems] = useState([]);
@@ -19,6 +23,8 @@ function App() {
   const [testCompleted, setTestCompleted] = useState(false);
   // const [testScore, setTestScore] = useState(0); // Assume score is calculated somehow
   const [sessionSummary, setSessionSummary] = useState(null);
+  const [currentSong, setCurrentSong] = useState('https://download.samplelib.com/mp3/sample-6s.mp3'); // Start with the first song
+  const songs = ['https://download.samplelib.com/mp3/sample-3s.mp3', 'https://download.samplelib.com/mp3/sample-9s.mp3', 'https://download.samplelib.com/mp3/sample-6s.mp3']; 
 
   // Hooks are always called at the top level
   const [startSession] = useMutation(START_SESSION_MUTATION);
@@ -45,30 +51,48 @@ function App() {
       });
   };
 
-  const handleAnswerSelected = (selectedAnswer) => {
-    console.log(selectedAnswer);
-    if (currentItemIndex < testItems.length) {
-      submitResponse({
+  const handleAnswerSelected = async (selectedAnswer) => {
+    // Always submit the response for the current test item and selected answer
+    try {
+      await submitResponse({
         variables: {
           sessionId: sessionId,
           testItemId: testItems[currentItemIndex].id,
           selectedAnswer: selectedAnswer,
         },
-      }).then(() => {
-        // Logic after submitting an answer, e.g., move to the next question
-        if (currentItemIndex < testItems.length - 1) {
-          setCurrentItemIndex(currentItemIndex + 1);
-        } else {
-          // Test concluded
-          setTestCompleted(true);
-          setSessionStarted(false);
-          finalizeSession({ variables: { sessionId } });
-          // Show results or reset test
-        }
       });
+  
+      // Check if there are more items in the current round
+      if (currentItemIndex < testItems.length - 1) {
+        // Move to the next test item within the current round
+        setCurrentItemIndex(currentItemIndex + 1);
+      } else if (currentRound < totalRounds) {
+        // If the current round is completed and there are more rounds left
+        // Prepare for the next round
+        setCurrentItemIndex(0); // Reset item index for the next round
+        setCurrentRound(currentRound + 1); // Move to the next round
+        setCurrentSong(songs[currentRound]); // Update the song for the new round
+  
+        // Optionally regenerate or reshuffle test items for the new round
+        // This step depends on whether you want fresh items each round or the same items in a different order
+        // For simplicity, we'll assume you're reusing the same test items
+        // If you need to fetch new items or modify them, include that logic here
+  
+      } else {
+        // All rounds and items are completed
+        setTestCompleted(true);
+        setSessionStarted(false);
+  
+        // Finalize the session now that testing is complete
+        // This can include any cleanup or final data submission
+        await finalizeSession({ variables: { sessionId } });
+      }
+    } catch (error) {
+      console.error("Error submitting response:", error);
+      // Handle errors (e.g., show an error message)
     }
   };
-
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -80,10 +104,14 @@ function App() {
           </>
         )}
         {sessionStarted && (
+          <>
+          <MusicPlayer song={currentSong} autoPlay={true} loop={true} />
           <TestItemComponent
             testItem={testItems[currentItemIndex]}
             onAnswerSelected={handleAnswerSelected}
           />
+          
+          </>
         )}
         {testCompleted && (
           <ResultPage sessionSummary={sessionSummary}/>

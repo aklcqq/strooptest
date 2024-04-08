@@ -42,7 +42,6 @@ const TestItemComponent = ({ testItem, onAnswerSelected }) => {
   
   return (
     <div>
-        <audio autoPlay loop id="audio" src="https://download.samplelib.com/mp3/sample-3s.mp3" />
     <div className="test-item">
       <div className="word" style={{ color: testItem.color }}>
         {testItem.word}
