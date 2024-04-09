@@ -59,6 +59,7 @@ function App() {
           sessionId: sessionId,
           testItemId: testItems[currentItemIndex].id,
           selectedAnswer: selectedAnswer,
+          musicGenre: currentSong,
         },
       });
   

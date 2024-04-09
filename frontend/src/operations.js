@@ -38,8 +38,8 @@ query TestItemsBySession($sessionId: String!) {
 `;
 
 export const SUBMIT_RESPONSE_MUTATION = gql`
-mutation SubmitResponse($sessionId: String!, $testItemId: ID!, $selectedAnswer: String!) {
-  submitResponse(sessionId: $sessionId, testItemId: $testItemId, selectedAnswer: $selectedAnswer) {
+mutation SubmitResponse($sessionId: String!, $testItemId: ID!, $selectedAnswer: String!, $musicGenre: String!) {
+  submitResponse(sessionId: $sessionId, testItemId: $testItemId, selectedAnswer: $selectedAnswer, musicGenre: $musicGenre) {
     id
     isConsistent
   }

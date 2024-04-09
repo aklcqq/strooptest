@@ -65,3 +65,7 @@ or we can just keep the hardcoded music. See frontend/src/App.js
 change songs accordingly.
 
 Session ID might need redesign.
+
+# Misc
+
+hide audio control panel in components/MusicPlayer

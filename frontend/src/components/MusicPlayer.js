@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 const MusicPlayer = ({ song, autoPlay, loop }) => (
-  <audio src={song} autoPlay={autoPlay} loop={loop} />
+  // remove controls to hide control panel
+  <audio controls src={song} autoPlay={autoPlay} loop={loop} />
 
 );
 
