@@ -2,7 +2,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4001/graphql', // Adjust this to your GraphQL server URI
+  uri: process.env.REACT_APP_GRAPHQL_URI, // Adjust this to your GraphQL server URI
 });
 
 const client = new ApolloClient({

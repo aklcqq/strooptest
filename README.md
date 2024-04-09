@@ -15,30 +15,37 @@ and https://www.mongodb.com/try/download/community
 # build & run
 Make sure mongodb is up and running.
 
-For backend:
-add a config file .env under backend/src/config
+Backend Setup:
+~~
+cd backend
+~~
+create a `.env` config file,
 ~~~
 PORT=4000
 MONGO_URI=mongodb://localhost:27017/stroopTest
 ~~~
 
-under backend dir
+install dependencies & run the backend
 ~~~
 npm install
 npm run
 ~~~
 
-to run test for api
+to run api tests
 ~~~
 npm test
 ~~~
 
-For frontend
-
-edit uri in apolloClient.js under frontend/src/apolloClient.js to graphql api.
-
-~~~
+Frontend Setup
+~~
 cd frontend
+~~
+create a `.env` config file,
+~~~
+REACT_APP_GRAPHQL_URI=http://localhost:4000/graphql
+~~~
+install dependencies & run the backend
+~~~
 npm install
 npm start
 ~~~

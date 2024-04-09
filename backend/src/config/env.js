@@ -1,2 +1,2 @@
-require('dotenv').config({ path: '/home/cluo86/my-stroop-test-app/backend/src/config/.env'});
+require('dotenv').config();
 // console.log(process.env.MONGO_URI); // This should print your MongoDB URI.
