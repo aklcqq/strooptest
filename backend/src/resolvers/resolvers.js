@@ -83,7 +83,7 @@ const resolvers = {
         return testItems;
       },
 
-      async submitResponse(_, { sessionId, testItemId, selectedAnswer }) {
+      async submitResponse(_, { sessionId, testItemId, selectedAnswer, musicGenre }) {
         try {
           // Create a new response document
           const session = await Session.findOne({ sessionId: sessionId });
@@ -102,6 +102,7 @@ const resolvers = {
             sessionId,
             testItemId,
             selectedAnswer,
+            musicGenre,
             isConsistent,
           });
   

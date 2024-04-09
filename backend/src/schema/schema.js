@@ -20,6 +20,7 @@ const typeDefs = `#graphql
     sessionId: String!
     testItemId: ID!
     selectedAnswer: String!
+    musicGenre: String!
     responseTime: Int!
     isConsistent: Boolean
     createdAt: String
@@ -46,7 +47,7 @@ const typeDefs = `#graphql
   type Mutation {
     startSession(sessionId: String): Session!
     generateTestItems(sessionId: String!): [TestItem!]!
-    submitResponse(sessionId: String!, testItemId: ID!, selectedAnswer: String!): Response
+    submitResponse(sessionId: String!, testItemId: ID!, selectedAnswer: String!, musicGenre: String!): Response
     # Potential mutation for updating session information could be added here
     finalizeSession(sessionId: String!): Session!
   }

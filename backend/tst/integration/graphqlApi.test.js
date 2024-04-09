@@ -39,12 +39,13 @@ const genTestItemsQD = `mutation GenerateTestItems($sessionId: String!) {
   }
 }`;
 
-const submitResQD = `mutation SubmitResponse($sessionId: String!, $testItemId: ID!, $selectedAnswer: String!) {
-  submitResponse(sessionId: $sessionId, testItemId: $testItemId, selectedAnswer: $selectedAnswer) {
+const submitResQD = `mutation SubmitResponse($sessionId: String!, $testItemId: ID!, $selectedAnswer: String!, $musicGenre: String!) {
+  submitResponse(sessionId: $sessionId, testItemId: $testItemId, selectedAnswer: $selectedAnswer, musicGenre: $musicGenre) {
     id
     sessionId
     testItemId
     selectedAnswer
+    musicGenre
     isConsistent
   }
 }
@@ -105,7 +106,8 @@ describe('GraphQL API Integration Tests', () => {
   
     it('submits a response', async () => {
       // Test the submitResponse mutation
-      const variables = { sessionId: testUUID, testItemId: testItemId, selectedAnswer: selectedAnswer };
+      const musicGenre = "Test";
+      const variables = { sessionId: testUUID, testItemId: testItemId, selectedAnswer: selectedAnswer, musicGenre: musicGenre };
       const response = await request(url).post('/graphql').send({
         query: submitResQD,
         variables
@@ -115,6 +117,7 @@ describe('GraphQL API Integration Tests', () => {
       expect(response.body.data.submitResponse.sessionId).toBe(testUUID);
       expect(response.body.data.submitResponse.testItemId).toBe(testItemId);
       expect(response.body.data.submitResponse.selectedAnswer).toBe(selectedAnswer);
+      expect(response.body.data.submitResponse.musicGenre).toBe(musicGenre);
     
 
     });
