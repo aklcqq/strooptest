@@ -1,3 +1,6 @@
+# Demo
+https://tinyurl.com/cogsci-strooptest
+
 # Stroop-Test
 
 Tested on ubuntu/debian. should be similar on macOS.
