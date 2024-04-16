@@ -10,7 +10,7 @@ import MusicPlayer from './components/MusicPlayer';
 
 function App() {
 
-  const totalRounds = 3; // Example: Complete 3 rounds with 3 different songs
+  const totalRounds = 4; // Example: Complete 3 rounds with 3 different songs
   // const [currentSong, setCurrentSong] = useState('Song1.mp3'); // Start with the first song
 
   const [currentRound, setCurrentRound] = useState(1);
@@ -23,8 +23,8 @@ function App() {
   const [testCompleted, setTestCompleted] = useState(false);
   // const [testScore, setTestScore] = useState(0); // Assume score is calculated somehow
   const [sessionSummary, setSessionSummary] = useState(null);
-  const [currentSong, setCurrentSong] = useState('https://download.samplelib.com/mp3/sample-6s.mp3'); // Start with the first song
-  const songs = ['https://download.samplelib.com/mp3/sample-3s.mp3', 'https://download.samplelib.com/mp3/sample-9s.mp3', 'https://download.samplelib.com/mp3/sample-6s.mp3']; 
+  const [currentSong, setCurrentSong] = useState('silent'); // Start with the first song
+  const songs = ['silent', 'jazz', 'classical', 'rock', 'pop']; 
 
   // Hooks are always called at the top level
   const [startSession] = useMutation(START_SESSION_MUTATION);
