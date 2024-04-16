@@ -96,6 +96,13 @@ const resolvers = {
             throw new Error('Test item not found.');
           }
   
+          // Check if a response for this testItemId and sessionId already exists
+          const existingResponse = await Response.findOne({ sessionId, testItemId, musicGenre });
+          if (existingResponse) {
+            return;
+            // A response already exists, discard the new response and stop
+            throw new Error('Response for this test item already submitted.');
+          }
           const isConsistent = (testItem.correctAnswer === selectedAnswer);
 
           const newResponse = new Response({

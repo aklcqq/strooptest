@@ -10,9 +10,10 @@ import MusicPlayer from './components/MusicPlayer';
 
 function App() {
 
-  const totalRounds = 4; // Example: Complete 3 rounds with 3 different songs
+  const totalRounds = 3; // Example: Complete 3 rounds with 3 different songs
   // const [currentSong, setCurrentSong] = useState('Song1.mp3'); // Start with the first song
-
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentRound, setCurrentRound] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const [sessionStarted, setSessionStarted] = useState(false);
@@ -24,7 +25,7 @@ function App() {
   // const [testScore, setTestScore] = useState(0); // Assume score is calculated somehow
   const [sessionSummary, setSessionSummary] = useState(null);
   const [currentSong, setCurrentSong] = useState('silent'); // Start with the first song
-  const songs = ['silent', 'jazz', 'classical', 'rock', 'pop']; 
+  const songs = ['silent', 'classical', 'rock']; 
 
   // Hooks are always called at the top level
   const [startSession] = useMutation(START_SESSION_MUTATION);
@@ -52,6 +53,9 @@ function App() {
   };
 
   const handleAnswerSelected = async (selectedAnswer) => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     // Always submit the response for the current test item and selected answer
     try {
       await submitResponse({
@@ -91,6 +95,8 @@ function App() {
     } catch (error) {
       console.error("Error submitting response:", error);
       // Handle errors (e.g., show an error message)
+    } finally {
+      setIsSubmitting(false);
     }
   };
   
