@@ -69,7 +69,7 @@ const resolvers = {
         let testItems = await TestItem.find({ sessionId });
         if (testItems.length === 0) {
           try {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < process.env.TEST_ITEM_NUM; i++) {
               const testItem = await createAndSaveTestItem(sessionId);
               testItems.push(testItem);
             }
