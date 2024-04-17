@@ -8,6 +8,13 @@ import { v4 as uuidv4 } from 'uuid';
 import ResultPage from './components/ResultPage';
 import MusicPlayer from './components/MusicPlayer';
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+}
+
 function App() {
 
   const totalRounds = 3; // Example: Complete 3 rounds with 3 different songs
@@ -74,6 +81,12 @@ function App() {
       } else if (currentRound < totalRounds) {
         // If the current round is completed and there are more rounds left
         // Prepare for the next round
+
+        // shuffle array
+        shuffleArray(testItems);
+        setTestItems([...testItems]);
+
+
         setCurrentItemIndex(0); // Reset item index for the next round
         setCurrentRound(currentRound + 1); // Move to the next round
         setCurrentSong(songs[currentRound]); // Update the song for the new round
